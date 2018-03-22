@@ -5,8 +5,9 @@ import time
 import datetime
 import jwt
 
-#Contexts for OAuth Tokens
+#Context for OAuth Token
 OAuthPost = 'post'
+#JWT KEY and ALGORITHM
 HASH_KEY = 'P4YL0Ad{34&ffs'
 ALGORITHM = 'HS256'
 
@@ -28,7 +29,7 @@ class Singleton:
     def __instancecheck__(self,inst):
         return isinstance(inst, self._decorated)
 
-#Helper class used for Filter Request
+#Helper class used for Filter Requests into own object
 class RequestFiltered:
     payload = {}
     headers = {}
@@ -45,7 +46,7 @@ class RequestFiltered:
     def retrieve(self):
         return {'data':self.payload,'meta':self.headers}
 
-#Asistente para generar la respuesta de las peticiones
+#Assistant for crete own response structure
 class APIResponse:
     message = {}
     http_code = status.HTTP_200_OK
@@ -83,6 +84,7 @@ class APIResponse:
     def getHttpCode(self):
         return self.http_code
 
+#Marshal for managing CRUDS and incoming stream
 @Singleton
 class APIMarshall():
     def __init__(self):
@@ -112,7 +114,7 @@ class APIMarshall():
             for k in keys:
                 filtered_request.insert(k,request.data[k])
 
-        filtered_request.metaInsert('token',request.META.get('HTTP_FLKEY',''))
+        filtered_request.metaInsert('token',request.META.get('HTTP_KEY',''))
         filtered_request.metaInsert('auth',request.META.get('HTTP_AUTHKEY',''))
         filtered_request.metaInsert('type', request.method)
 
@@ -150,6 +152,7 @@ class Tokenizer:
         except jwt.ExpiredSignatureError:
             return {'exp':950797517,'entity':0,'ctx':'_'}
 
+#Own OAuth Manager
 @Singleton
 class OAuthManager:
     tokenizer = Tokenizer.Instance()

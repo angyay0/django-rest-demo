@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.db import models
 import datetime
+import uuid
 
 '''
     Following models are used in the app just for demonstrate
@@ -25,6 +26,7 @@ class UserModel(models.Model):
 
 class Entry(models.Model):
     author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    key = models.UUIDField(default=uuid.uuid4, editable=False, blank=False)
     title = models.CharField(max_length=50, blank=False)
     entry = models.TextField(blank=False)
     created_date = models.DateTimeField(default=datetime.datetime.today, blank=False, editable=False)
