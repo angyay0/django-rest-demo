@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "c7976430-01bc-4987-99c9-68238da5ed71",
+		"name": "DemoAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Sign Up",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"John\",\n\t\"last\":\"Smith\",\n\t\"email\":\"somebody@email.com\",\n\t\"password\":\"pythonrules\"\n}"
+				},
+				"url": "http://127.0.0.1:8000/api/signup/"
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"user\":\"somebody@email.com\",\n\t\"password\":\"pythonrules\",\n\t\"dev_id\":0,\n\t\"dev_desc\":\"Postman Request\"\n}"
+				},
+				"url": "http://127.0.0.1:8000/api/authenticate/"
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch All Posts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "KEY",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdHgiOiJwb3N0IiwiZXhwIjoxNTIxOTAwNDQ2LCJlbnRpdHkiOjF9.HzZr02oaFZQEcsnANJ5vH7Zajf-fMxoVuMYF22pN3PI"
+					},
+					{
+						"key": "AUTHKEY",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdHgiOiJhdXRoIiwiZXhwIjoxNTIxOTAwNDQ2LCJlbnRpdHkiOjF9.Qfr474Z4AHH7wFIqGJ4fa8CdWeQY6_sG0LDk-altFA8"
+					}
+				],
+				"body": {},
+				"url": "http://127.0.0.1:8000/api/post/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Post",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "KEY",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdHgiOiJwb3N0IiwiZXhwIjoxNTIxOTAwNDQ2LCJlbnRpdHkiOjF9.HzZr02oaFZQEcsnANJ5vH7Zajf-fMxoVuMYF22pN3PI"
+					},
+					{
+						"key": "AUTHKEY",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdHgiOiJhdXRoIiwiZXhwIjoxNTIxOTAwNDQ2LCJlbnRpdHkiOjF9.Qfr474Z4AHH7wFIqGJ4fa8CdWeQY6_sG0LDk-altFA8"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/post/?post=172c30cf-53c8-4b84-806a-d6dfd6deb7b6",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"post",
+						""
+					],
+					"query": [
+						{
+							"key": "post",
+							"value": "172c30cf-53c8-4b84-806a-d6dfd6deb7b6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "KEY",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdHgiOiJwb3N0IiwiZXhwIjoxNTIxOTAwNDQ2LCJlbnRpdHkiOjF9.HzZr02oaFZQEcsnANJ5vH7Zajf-fMxoVuMYF22pN3PI"
+					},
+					{
+						"key": "AUTHKEY",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdHgiOiJhdXRoIiwiZXhwIjoxNTIxOTAwNDQ2LCJlbnRpdHkiOjF9.Qfr474Z4AHH7wFIqGJ4fa8CdWeQY6_sG0LDk-altFA8"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\":\"Demo Post\",\n\t\"entry\":\"This demonstrate how practice is working with python and django using RESTful scheme\"\n}"
+				},
+				"url": "http://127.0.0.1:8000/api/post/"
+			},
+			"response": []
+		},
+		{
+			"name": "Creat Comment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Key",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdHgiOiJwb3N0IiwiZXhwIjoxNTIxOTA1NDY2LCJlbnRpdHkiOjF9.ebj0NNvWzg8YK_1nFYJnFKXKYuyv6VsrpeQPpC9Xa8c"
+					},
+					{
+						"key": "AuthKey",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjdHgiOiJhdXRoIiwiZXhwIjoxNTIxOTA1NDY2LCJlbnRpdHkiOjF9.CoQXqTNlxP1wnEv33M-uNFqHEKGkYeWTGyeqPF9aWwI"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"post\":\"172c30cf-53c8-4b84-806a-d6dfd6deb7b6\",\n\t\"comment\":\"Python is pretty awesome!\"\n}"
+				},
+				"url": "http://127.0.0.1:8000/api/post/comment/"
+			},
+			"response": []
+		}
+	]
+}
