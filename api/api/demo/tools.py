@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 from rest_framework import status
-import time
-import datetime
-import jwt
+import time,datetime,traceback,jwt
+
 
 #Context for OAuth Token
 OAuthPost = 'post'
@@ -148,7 +146,7 @@ class Tokenizer:
     #Generate Original Payload
     def unmaskSensitiveData(self, payload):
         try:
-            return jwt.decode(encoded,HASH_KEY,algorithm=ALGORITHM)
+            return jwt.decode(payload,HASH_KEY,algorithm=ALGORITHM)
         except jwt.ExpiredSignatureError:
             return {'exp':950797517,'entity':0,'ctx':'_'}
 
@@ -192,11 +190,11 @@ class OAuthManager:
     #Validate if OAuth Token is valid
     def isTokenValid(self,token):
         payload = self.tokenizer.unmaskSensitiveData(token)
-        return (int(time.time()) > (int(payload['exp']) - self.valid_time_offset))
+        return (int(time.time()) < (int(payload['exp']) - self.valid_time_offset))
 
     #Verify if Token applies for context
     def isTokenValidForContext(self,token,context='auth'):
-        if isTokenValid(token):
+        if self.isTokenValid(token):
             payload = self.tokenizer.unmaskSensitiveData(token)
             return context == payload['ctx']
 

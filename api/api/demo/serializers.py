@@ -8,7 +8,7 @@ from api.demo.models import *
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserModel
-        exclude = ('id','created_date','created_by')
+        fields = ('name','last_name','email','status','created_date')
 
 class StatusSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -18,17 +18,17 @@ class StatusSerializer(serializers.HyperlinkedModelSerializer):
 class EntrySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Entry
-        exclude = ('id','created_date')
+        fields = ('author','title','entry','key','created_date')
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Comment
-        exclude = ('id','created_date')
+        fields = ('comment','author')
 
 class AccessSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Access
-        exclude = ('id','created_date')
+        fileds = ('user','device','description')
 '''
 class TokenSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

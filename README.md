@@ -17,21 +17,35 @@ My recommendation is create an isolated environment, i prefer to use **VirtualEn
 
 ### Installation Steps (Unix Core)
 You need to do this on console inside the project folder
-
-**VirtualEnv** to manage libraries and dependencies
-*$pip install virtualenv* This will install virtualenv
-*$virtualenv dev* This will create the isolated environment
-*$source dev/bin/activate* This will redirect and activate the created environment
-
+*VirtualEnv* to manage libraries and dependencies
+This will install virtualenv
+```
+$pip install virtualenv
+```
+This will create the isolated environment
+```
+$virtualenv dev
+```
+his will redirect and activate the created environment
+``
+$source dev/bin/activate
+```
 The next steps are install with pip all the dependencies
-*$pip install django*
-*$pip install djangorestframework*
-*$pip install PyJWT*
+```
+$pip install django
+$pip install djangorestframework
+$pip install PyJWT
+```
 
 ### Run the server
 Before run the server, first migration is required:
-*$python manage.py makemigrations* this will create the migrations to database
-*$python manage.py migrate* This will migrate schemes and data from migrations
+```
+$python manage.py makemigrations
+$python manage.py migrate
+```
+First line is to prepare the models to migrate
+
+*NOTE:* Is required to insert 2 status (Active,Suspended) on Status CRUD
 
 Finally you can run the code typing the following:
 ```
@@ -51,7 +65,7 @@ The following is required Software:
 * UWSGI
 * NGINX
 
-At this point your next steps are download the files to a directory in your server and try to run to ensure correct execution, so, you need to follow Installation Steps.
+At this point your next steps are download the files to a directory in your server and try to run to ensure correct execution, so, you need to follow Installation Steps, then you should modify the Allowed host in your *settings.py*, also you DB configuration (if you attempt to run in other DBMS than SQLite).
 
 For the communication between request and execution we are going to use *UNIX SOCKET*.
 This is recommended for security reasons, you can use the direct request model, but i prefer sockets. I strongly recommend that you create a script to create this folder every server reboot.

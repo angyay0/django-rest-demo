@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 from rest_framework import status
 from api.demo.tools import OAuthManager,APIMarshall,OAuthPost,APIResponse
 from api.demo.models import UserModel,UserStatus,Access,Entry,Comment
-import datetime
+import datetime,traceback
 
 #This Manager Base handles Access Rights Not public
 class BaseManager:
@@ -18,7 +17,7 @@ class BaseManager:
         isAuthorized = False
         try:
             if self.OAuth.isTokenValidForContext(meta):
-                data = self.oauth.tokenizer.unmaskSensitiveData(meta)
+                data = self.OAuth.tokenizer.unmaskSensitiveData(meta)
                 user = UserModel.objects.get(id=data['entity'])
                 status = user.status.title
 
@@ -154,10 +153,11 @@ class APIManager(BaseManager):
             entry.title = data['title']
             entry.entry = data['entry']
             entry.updated_date = datetime.datetime.today()
-            enty.save()
+            entry.save()
             response.initWith(0,'Successful',self.getEntryData(entry.key))
         except Exception as e:
-            respose.initWith(100,'An Error Occurs')
+            print e
+            response.initWith(100,'An Error Occurs')
             response.setHttpCode(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         return response
@@ -184,7 +184,7 @@ class APIManager(BaseManager):
     #Retrieve one Entry Data
     def getEntryData(self,id):
         try:
-            post=Entry.objects.get(key=post)
+            post=Entry.objects.get(key=id)
             comments = self.getComments(post.id)
 
             return {
@@ -192,7 +192,7 @@ class APIManager(BaseManager):
                 'id': post.key,
                 'entry': post.entry,
                 'title': post.title,
-                'created': post.created,
+                'created': post.created_date,
                 'edited': post.updated_date,
                 'comments': comments
             }
@@ -201,10 +201,10 @@ class APIManager(BaseManager):
             return None
 
     #Retrieve Comments for a Post
-    def getComments(self, key):
+    def getComments(self,key):
         try:
             comments = []
-            raw_comments=list(Comments.objects.filter(entry=post.id))
+            raw_comments=list(Comment.objects.filter(entry=key))
             for com in comments:
                 comments.append({
                     'comment':com.comment,
@@ -214,6 +214,7 @@ class APIManager(BaseManager):
 
             return comments
         except Exception as e:
+            print e
             return []
 
 
