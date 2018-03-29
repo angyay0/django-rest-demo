@@ -27,7 +27,7 @@ This will create the isolated environment
 $virtualenv dev
 ```
 his will redirect and activate the created environment
-``
+```
 $source dev/bin/activate
 ```
 The next steps are install with pip all the dependencies
