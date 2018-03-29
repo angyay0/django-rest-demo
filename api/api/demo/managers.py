@@ -197,7 +197,6 @@ class APIManager(BaseManager):
                 'comments': comments
             }
         except Exception as e:
-            print e
             return None
 
     #Retrieve Comments for a Post
@@ -205,16 +204,15 @@ class APIManager(BaseManager):
         try:
             comments = []
             raw_comments=list(Comment.objects.filter(entry=key))
-            for com in comments:
+            for com in raw_comments:
                 comments.append({
                     'comment':com.comment,
-                    'author':com.author.name+' '+com.autho.last_name,
+                    'author':com.author.name+' '+com.author.last_name,
                     'date': com.created_date
                 })
 
             return comments
         except Exception as e:
-            print e
             return []
 
 
